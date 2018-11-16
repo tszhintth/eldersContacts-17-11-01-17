@@ -165,10 +165,8 @@ class VoiceViewController: UIViewController , UITableViewDelegate, UITableViewDa
             if error != nil || finished {
                 self.audioEngine.stop()
                 inputNode.removeTap(onBus: 0)
-                
                 self.speechRecognitionRequest = nil
                 self.speechRecognitionTask = nil
-                
                 self.transcribeButton.isEnabled = true
             }
         }
@@ -202,6 +200,7 @@ class VoiceViewController: UIViewController , UITableViewDelegate, UITableViewDa
             }
         }
     }
+    
     /*
      // MARK: - Navigation
      

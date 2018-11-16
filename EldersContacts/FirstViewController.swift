@@ -16,7 +16,7 @@ class customViewCell: UITableViewCell{
 }
 
 class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+    var refresher: UIRefreshControl! = nil
     @IBOutlet weak var table: UITableView!
     
     @IBAction func unwindSegue(segue:UIStoryboardSegue){
@@ -117,8 +117,11 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         //navigationController?.navigationBar.backIndicatorImage = UIImage.init(named: "back1.png")
         //navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage.init(named: "back1.png")
         
-        //fetchContact()
-        
+        refresher = UIRefreshControl()
+        table.addSubview(refresher)
+        refresher.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refresher.tintColor = UIColor(displayP3Red: 0.6, green: 0.6, blue: 0.6, alpha: 1.0)
+        refresher.addTarget(self, action: #selector(updateContactList), for: .valueChanged)
     }
     
 //    override func viewDidAppear(_ animated: Bool) {
@@ -138,8 +141,13 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let store = CNContactStore()
         store.requestAccess(for: .contacts, completionHandler: { (granted, err) in
             if let err = err{
-                print("Failed to request access:", err)
-                return
+                let alert = UIAlertController.init(title: "Failed to request contacts access right", message: "Please reinstall the application to regrant the right", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction.init(title: "OK", style: UIAlertAction.Style.default, handler: { (UIAlertAction) in
+                    print("Failed to request access:", err)
+                }))
+                self.present(alert, animated: true, completion: {
+                    return
+                })
             }
             if granted{
                 print("Access granted")
@@ -159,7 +167,11 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     print("Failed to enum. contacts", err)
                 }
             }else{
-                print("Access denied")
+                let alert = UIAlertController.init(title: "Failed to access contacts", message: "Please reinstall the application", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction.init(title: "OK", style: UIAlertAction.Style.default, handler: { (UIAlertAction) in
+                    print("Access denied")
+                }))
+                self.present(alert, animated: true, completion: nil)
             }
         })
     }
@@ -203,10 +215,11 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         print("vibrate")
     }
     
-    func updateContactList(){
+    @objc func updateContactList(){
         contactArr = []
         fetchContact()
         table.reloadData()
+        refresher.endRefreshing()
     }
 }
 

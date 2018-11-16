@@ -17,7 +17,8 @@ class personInfo: UIViewController {
     
     @IBOutlet var personImage: UIImageView!
     
-    
+    @IBOutlet var callButton: UIButton!
+    @IBOutlet var messageButton: UIButton!
     
     @IBAction func message(_ sender: Any) {
         let string = "message"
@@ -68,7 +69,14 @@ class personInfo: UIViewController {
             printAllContactInfo(temp)
             let fName = temp.givenName
             let lName = temp.familyName
-            self.title = fName + " " + lName
+            if fName != "" && lName != ""{
+                self.title = fName + " " + lName
+            }else if fName == ""{
+                self.title = lName
+            }else{
+                self.title = fName
+            }
+            
             personImage.image = UIImage.init(data: temp.imageData ?? Data.init())// temporary solution
             personImage.layer.cornerRadius = personImage.frame.size.width/2
             personImage.clipsToBounds = true
@@ -90,6 +98,19 @@ class personInfo: UIViewController {
         backgroundImageView.alpha = 0.3
         
         self.view.insertSubview(backgroundImageView, at: 0)
+        
+        if let temp = content{
+            let phoneNum = temp.phoneNumbers.first?.value.stringValue
+            if ((phoneNum?.contains("*"))! || (phoneNum?.contains("#"))!){
+                callButton.isEnabled = false
+                messageButton.isEnabled = false
+                var alert = UIAlertController(title: "Invalid Phone Number", message: "Call and Message buttons are disabled", preferredStyle: .alert)
+                alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: { (UIAlertAction) in
+                    print("Buttons disabled")
+                }))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
