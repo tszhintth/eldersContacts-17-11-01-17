@@ -30,7 +30,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
 
     private var contactArr: [CNContact] = []
-    // var person: CNContact?
     var selectedRowNumber: Int?
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -48,6 +47,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         //set font size of the name
         let size = 30 as CGFloat
+        
         
         cell.contactName.adjustsFontSizeToFitWidth = true
         

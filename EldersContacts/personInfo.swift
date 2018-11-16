@@ -92,6 +92,7 @@ class personInfo: UIViewController {
         let backgroundImage = UIImage.init(named: "personImage.jpg")
         let backgroundImageView = UIImageView.init(frame: self.view.frame)
         
+        
         backgroundImageView.image = backgroundImage
         backgroundImageView.contentMode = .scaleAspectFill
         //how saturate is the image
@@ -100,11 +101,20 @@ class personInfo: UIViewController {
         self.view.insertSubview(backgroundImageView, at: 0)
         
         if let temp = content{
-            let phoneNum = temp.phoneNumbers.first?.value.stringValue
-            if ((phoneNum?.contains("*"))! || (phoneNum?.contains("#"))!){
+            if let phoneNum = temp.phoneNumbers.first?.value.stringValue{
+                if phoneNum.contains("*") || phoneNum.contains("#"){
+                    callButton.isEnabled = false
+                    messageButton.isEnabled = false
+                    let alert = UIAlertController(title: "Invalid Phone Number", message: "Call and Message buttons are disabled", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: { (UIAlertAction) in
+                        print("Buttons disabled")
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }else{
                 callButton.isEnabled = false
                 messageButton.isEnabled = false
-                var alert = UIAlertController(title: "Invalid Phone Number", message: "Call and Message buttons are disabled", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Invalid Phone Number", message: "Call and Message buttons are disabled", preferredStyle: .alert)
                 alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: { (UIAlertAction) in
                     print("Buttons disabled")
                 }))
