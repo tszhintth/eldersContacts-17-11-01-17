@@ -151,10 +151,8 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             if granted{
                 print("Access granted")
-                
                 let keys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey, CNContactImageDataKey]
                 let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
-                
                 do{
                     try store.enumerateContacts(with: request, usingBlock: {
                         (contact, stopPointer) in

@@ -85,19 +85,34 @@ class Edit: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelega
             print("FamilyName Error")
             return
         }
-        guard let phone = Int64(Phone.text!) else {
+        guard var phone = Phone.text else {
             let string = "phone must be number digit zero to nine"
             let utterance = AVSpeechUtterance(string: string)
             utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-            
             let synth = AVSpeechSynthesizer()
             synth.speak(utterance)
             return
         }
-        if firstName != "" && familyName != "" {
+        
+        phone = phone.components(separatedBy: CharacterSet.whitespaces).joined()
+        phone = phone.toValidPhoneNum()
+        print("phoneNUM: \(phone)")
+        
+        if phone == ""{
+            print("failed")
+            let string = "Invalid phone number"
+            let utterance = AVSpeechUtterance(string: string)
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            let synth = AVSpeechSynthesizer()
+            synth.speak(utterance)
+            let alert = UIAlertController.init(title: "ERROR", message: "Invalid phone number", preferredStyle: .alert)
+            alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: { (self) in
+                print("invalid phone number in edit")
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }else if firstName != "" && familyName != "" {
             print("success")
             let contact = contect?.mutableCopy() as! CNMutableContact
-            
             contact.givenName = firstName
             contact.familyName = familyName
             contact.phoneNumbers = [CNLabeledValue(label: CNLabelPhoneNumberiPhone, value: CNPhoneNumber(stringValue: String(phone)))]
@@ -149,10 +164,20 @@ class Edit: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelega
             } else {
                 print("this record cannot be found")
             }
+            let string = "\(firstName) \(familyName)'s contact has updated"
+            let utterance = AVSpeechUtterance(string: string)
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            let synth = AVSpeechSynthesizer()
+            synth.speak(utterance)
             self.performSegue(withIdentifier: "updatedSegue", sender: self)
         }else{
             // user change their contact's first or last name to empty
-            let alert = UIAlertController.init(title: "Alert", message: "First Name or Last Name cannot be empty", preferredStyle: .alert)
+            let string = "Both first name and family name cannot be empty"
+            let utterance = AVSpeechUtterance(string: string)
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            let synth = AVSpeechSynthesizer()
+            synth.speak(utterance)
+            let alert = UIAlertController.init(title: "ERROR", message: "First Name or Last Name cannot be empty", preferredStyle: .alert)
             alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: { (self) in
                 print("empty first Name Field and empty last name field in editing")
             }))
