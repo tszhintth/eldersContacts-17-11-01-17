@@ -232,7 +232,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" textContentType="given-name"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Family Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Ok-b7-Ljj">
                                         <rect key="frame" x="30.333333333333357" y="126.66666666666664" width="222.66666666666663" height="60.666666666666671"/>
@@ -242,7 +242,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" textContentType="family-name"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Phone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MoP-8E-AUd">
                                         <rect key="frame" x="30.333333333333357" y="202.99999999999994" width="222.66666666666663" height="60.666666666666686"/>
@@ -252,7 +252,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Voice Command" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VgJ-50-raD">
                                         <rect key="frame" x="30.333333333333357" y="279.33333333333331" width="222.66666666666663" height="61"/>
@@ -338,9 +338,8 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vxe-r1-NRY">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vxe-r1-NRY">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                     <connections>
                                         <action selector="cancelAddContact:" destination="AFZ-3q-LYV" eventType="touchUpInside" id="bYl-2W-yQV"/>
                                     </connections>
@@ -348,7 +347,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CnL-xs-0Fg">
                                     <rect key="frame" x="65.333333333333343" y="285.66666666666674" width="283.33333333333326" height="436.33333333333326"/>
                                     <subviews>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="FirstName" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IYk-V6-KIP">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IYk-V6-KIP">
                                             <rect key="frame" x="30.333333333333357" y="55.333333333333314" width="222.66666666666663" height="65"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
@@ -356,9 +355,9 @@
                                             </constraints>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <textInputTraits key="textInputTraits" textContentType="given-name"/>
                                         </textField>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="FamilyName" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gaw-Ux-NPw">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Family Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gaw-Ux-NPw">
                                             <rect key="frame" x="30.333333333333357" y="159.33333333333331" width="222.66666666666663" height="65"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
@@ -366,7 +365,7 @@
                                             </constraints>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <textInputTraits key="textInputTraits" textContentType="family-name"/>
                                         </textField>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Phone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h75-le-eGb">
                                             <rect key="frame" x="30.333333333333357" y="259.99999999999994" width="222.66666666666663" height="65"/>
@@ -376,7 +375,7 @@
                                             </constraints>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUs-7C-yPQ">
                                             <rect key="frame" x="30.333333333333357" y="352.33333333333331" width="222.66666666666663" height="65"/>
@@ -440,9 +439,13 @@
                                 </view>
                             </subviews>
                             <constraints>
+                                <constraint firstAttribute="bottom" secondItem="vxe-r1-NRY" secondAttribute="bottom" id="7Qs-ho-UrC"/>
                                 <constraint firstItem="CnL-xs-0Fg" firstAttribute="top" secondItem="EWr-Pf-cKm" secondAttribute="bottom" id="AAt-Lt-Y62"/>
                                 <constraint firstItem="EWr-Pf-cKm" firstAttribute="width" secondItem="CnL-xs-0Fg" secondAttribute="width" multiplier="210:305" id="L7w-FF-c70"/>
+                                <constraint firstItem="vxe-r1-NRY" firstAttribute="leading" secondItem="d7g-uB-rfC" secondAttribute="leading" id="Lua-u5-8qW"/>
+                                <constraint firstItem="vxe-r1-NRY" firstAttribute="top" secondItem="d7g-uB-rfC" secondAttribute="top" id="RwR-L9-MEm"/>
                                 <constraint firstItem="CnL-xs-0Fg" firstAttribute="centerX" secondItem="d7g-uB-rfC" secondAttribute="centerX" id="VNi-9F-9Nz"/>
+                                <constraint firstAttribute="trailing" secondItem="vxe-r1-NRY" secondAttribute="trailing" id="d2q-aJ-J2d"/>
                                 <constraint firstItem="EWr-Pf-cKm" firstAttribute="top" secondItem="d7g-uB-rfC" secondAttribute="centerY" multiplier="0.2" constant="1" id="dL5-6o-5KL"/>
                                 <constraint firstItem="EWr-Pf-cKm" firstAttribute="width" secondItem="d7g-uB-rfC" secondAttribute="width" multiplier="195:414" priority="999" id="oPj-yI-TCP"/>
                                 <constraint firstItem="EWr-Pf-cKm" firstAttribute="centerX" secondItem="d7g-uB-rfC" secondAttribute="centerX" id="zHl-iW-bP5"/>
