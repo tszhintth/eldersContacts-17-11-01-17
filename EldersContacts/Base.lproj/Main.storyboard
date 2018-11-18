@@ -105,7 +105,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="CONTACTS" id="0te-rl-9Pq">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="first" id="X6I-Mp-lnx">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="add" id="X6I-Mp-lnx">
                             <connections>
                                 <segue destination="AFZ-3q-LYV" kind="presentation" identifier="add Contact" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="Wiz-d5-dR9"/>
                             </connections>
@@ -565,8 +565,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="add" width="64" height="64"/>
         <image name="addPhoto" width="500" height="500"/>
-        <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
 </document>

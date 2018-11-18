@@ -209,6 +209,8 @@ class VoiceViewController: UIViewController , UITableViewDelegate, UITableViewDa
         backgroundImageView.contentMode = .scaleAspectFill
         //how saturate is the image
         backgroundImageView.alpha = 0.3
+        
+        self.view.insertSubview(backgroundImageView, at: 0)
 
         authorizeSR()
         // Do any additional setup after loading the view.
