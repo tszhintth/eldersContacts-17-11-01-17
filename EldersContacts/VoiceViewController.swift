@@ -20,7 +20,7 @@ class VoiceViewController: UIViewController , UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "voiceCommandCell", for: indexPath) as! VoiceCell
         let task = tasks[indexPath.row]
         cell.voiceCommandLabel.adjustsFontSizeToFitWidth = true
-        cell.voiceCommandLabel.text = "Command: \(task.toCall!)\nPhone:\(task.phone!)"
+        cell.voiceCommandLabel.text = "Command: \(task.toCall!)\nPhone: \(task.phone!)"
         return cell
     }
     override func viewWillAppear(_ animated: Bool) {
