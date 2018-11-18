@@ -200,11 +200,11 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     }else{
                         print("cannot get the row number")
                     }
-            }else{
-                print("identifier failed")
+            }else if identifier == "add Contact"{
+                print("Add contact")
+            }else if identifier == "voice Command"{
+                print("voice Command")
             }
-        }else{
-            print("Add contect")
         }
     }
     

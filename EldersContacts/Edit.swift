@@ -110,6 +110,7 @@ class Edit: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelega
                 print("invalid phone number in edit")
             }))
             self.present(alert, animated: true, completion: nil)
+            return
         }else if firstName != "" && familyName != "" {
             print("success")
             let contact = contect?.mutableCopy() as! CNMutableContact
@@ -121,7 +122,6 @@ class Edit: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelega
             } else {
                 print("profile Pic is nil")
             }
-            
             let store = CNContactStore()
             let saveRequest = CNSaveRequest()
             saveRequest.update(contact)
@@ -133,6 +133,17 @@ class Edit: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelega
             
             if Comand.text != "" {
                 do {
+                    var text = Comand.text
+                    text = text!.trimmingCharacters(in: CharacterSet.whitespaces)
+                    text = text?.lowercased()
+                    if text == ""{
+                        let alert = UIAlertController.init(title: "ERROR", message: "Invalid Command", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: { (self) in
+                            print("EMPTY COMMAND AFTER TRMMING")
+                        }))
+                        self.present(alert, animated: true, completion: nil)
+                        return
+                    }
                     let fetchRequest : NSFetchRequest<Contacts> = Contacts.fetchRequest()
                     fetchRequest.predicate = NSPredicate(format: "phone == %@", permphone)
                     contacts = try context.fetch(fetchRequest)
@@ -141,20 +152,23 @@ class Edit: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelega
                         var isRecordFound = false
                         for contact in contacts {
                             contact.phone = String(phone)
-                            contact.toCall = Comand.text
+                            // contact.toCall = Comand.text
+                            contact.toCall = text
                             isRecordFound = true
                         }
                         if isRecordFound {
                             appDelegate.saveContext()
                         } else {
                             let comcontact = Contacts(context: context)
-                            comcontact.toCall = Comand.text
+                            // comcontact.toCall = Comand.text
+                            comcontact.toCall = text
                             comcontact.phone = Phone.text
                             appDelegate.saveContext()
                         }
                     } else {
                         let comcontact = Contacts(context: context)
-                        comcontact.toCall = Comand.text
+                        // comcontact.toCall = Comand.text
+                        comcontact.toCall = text
                         comcontact.phone = Phone.text
                         appDelegate.saveContext()
                     }

@@ -86,7 +86,7 @@
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
-                                    <segue destination="kEG-7R-8Yj" kind="show" id="phm-9h-fI0"/>
+                                    <segue destination="kEG-7R-8Yj" kind="show" identifier="voice Command" id="phm-9h-fI0"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -107,7 +107,7 @@
                     <navigationItem key="navigationItem" title="CONTACTS" id="0te-rl-9Pq">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="first" id="X6I-Mp-lnx">
                             <connections>
-                                <segue destination="AFZ-3q-LYV" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="Wiz-d5-dR9"/>
+                                <segue destination="AFZ-3q-LYV" kind="presentation" identifier="add Contact" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="Wiz-d5-dR9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
