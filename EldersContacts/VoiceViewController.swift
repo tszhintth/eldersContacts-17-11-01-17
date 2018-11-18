@@ -4,6 +4,10 @@ import MessageUI
 import CallKit
 import CoreData
 
+class VoiceCell: UITableViewCell{
+    @IBOutlet weak var voiceCommandLabel: UILabel!
+}
+
 class VoiceViewController: UIViewController , UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -13,9 +17,9 @@ class VoiceViewController: UIViewController , UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "voiceCommandCell", for: indexPath) as! VoiceCell
         let task = tasks[indexPath.row]
-        cell.textLabel?.text = "Command: \(task.toCall!)      Phone: \(task.phone!)"
+        cell.voiceCommandLabel.text = "Command: \(task.toCall!)      Phone: \(task.phone!)"
         return cell
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -60,46 +64,6 @@ class VoiceViewController: UIViewController , UITableViewDelegate, UITableViewDa
     @IBOutlet var transcribeButton: UIButton!
     @IBOutlet var myTexView: UILabel!
     @IBOutlet var tableView: UITableView!
-    
-//    @IBOutlet var tableView: UITableView!
-//    @IBOutlet var transcribeButton: UIButton!
-//    @IBOutlet var stopButton: UIButton!
-//    @IBOutlet var myTexView: UITextField!
-//    @IBOutlet var contact_person: UITextField!
-//    @IBOutlet var submit_button: UIButton!
-    
-//    @IBAction func addTask(_ sender: UIButton) {
-//
-//        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-//
-//        let task = Contacts(context : context)
-//        if ((myTexView.text) != nil) && ((contact_person.text) != nil) {
-//            task.tocall = myTexView.text!
-//            task.phone = contact_person.text!
-//            (UIApplication.shared.delegate as! AppDelegate).saveContext()
-//            //navigationController!.popViewController(animated: true)
-//            tableView.reloadData()
-//        }else { return }
-//        self.viewWillAppear(true)
-//    }
-    
-    
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-//
-//        if editingStyle == .delete {
-//            let task = tasks[indexPath.row]
-//            context.delete(task)
-//            (UIApplication.shared.delegate as! AppDelegate).saveContext()
-//
-//            do{
-//                tasks = try context.fetch(Contacts.fetchRequest())
-//            } catch {
-//                print("Fetching Failed")
-//            }
-//            tableView.reloadData()
-//        }
-//    }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         do {
@@ -153,7 +117,7 @@ class VoiceViewController: UIViewController , UITableViewDelegate, UITableViewDa
         let audioSession = AVAudioSession.sharedInstance()
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(.record, mode: .videoChat)
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .videoChat)
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
             print(error)
