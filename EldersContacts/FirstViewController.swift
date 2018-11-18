@@ -52,7 +52,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.contactName.adjustsFontSizeToFitWidth = true
         
         //set font style
-        cell.contactName.font = UIFont(name: "Bradley Hand", size: size)
+        cell.contactName.font = UIFont(name: "Arial Rounded MT Bold", size: size)
         
         //set name to contact
         cell.contactName.text = name

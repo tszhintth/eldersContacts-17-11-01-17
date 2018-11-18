@@ -173,10 +173,15 @@ class VoiceViewController: UIViewController , UITableViewDelegate, UITableViewDa
         backgroundImageView.image = backgroundImage
         backgroundImageView.contentMode = .scaleAspectFill
         //how saturate is the image
-        backgroundImageView.alpha = 0.3
+        backgroundImageView.alpha = 0.5
         
         self.view.insertSubview(backgroundImageView, at: 0)
-
+        //make the navigation bar become invisible
+        //the bar
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        //the shadow
+        navigationController?.navigationBar.shadowImage = UIImage()
+        
         authorizeSR()
         // Do any additional setup after loading the view.
     }
