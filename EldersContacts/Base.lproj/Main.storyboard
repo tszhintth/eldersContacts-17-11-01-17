@@ -495,6 +495,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RO0-gK-rHj" id="cDk-Ad-dr2">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="99.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -502,6 +503,8 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="20" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IrN-T6-M4c">
                                                     <rect key="frame" x="15" y="0.0" width="345" height="99.666666666666671"/>
 =======
+=======
+>>>>>>> c081f19f26f3943a7e2706933018bf1573b31792
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RO0-gK-rHj" id="cDk-Ad-dr2">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="99.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -528,15 +531,21 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                 <constraint firstAttribute="trailing" secondItem="IrN-T6-M4c" secondAttribute="trailing" constant="15" id="Hb4-2m-ADM"/>
                                                 <constraint firstItem="IrN-T6-M4c" firstAttribute="top" secondItem="cDk-Ad-dr2" secondAttribute="top" id="Jzg-U0-nsx"/>
                                                 <constraint firstItem="IrN-T6-M4c" firstAttribute="leading" secondItem="cDk-Ad-dr2" secondAttribute="leading" constant="15" id="boe-xw-I3Q"/>
                                                 <constraint firstAttribute="bottom" secondItem="IrN-T6-M4c" secondAttribute="bottom" id="exc-ao-esN"/>
 =======
+=======
+>>>>>>> c081f19f26f3943a7e2706933018bf1573b31792
                                                 <constraint firstAttribute="trailing" secondItem="IrN-T6-M4c" secondAttribute="trailing" constant="15" id="9mO-iz-vQD"/>
                                                 <constraint firstItem="IrN-T6-M4c" firstAttribute="top" secondItem="cDk-Ad-dr2" secondAttribute="top" id="GWJ-JQ-7mq"/>
                                                 <constraint firstItem="IrN-T6-M4c" firstAttribute="leading" secondItem="cDk-Ad-dr2" secondAttribute="leading" constant="15" id="aLl-T0-uX6"/>
                                                 <constraint firstAttribute="bottom" secondItem="IrN-T6-M4c" secondAttribute="bottom" id="ofl-RU-mh3"/>
+<<<<<<< HEAD
+>>>>>>> c081f19f26f3943a7e2706933018bf1573b31792
+=======
 >>>>>>> c081f19f26f3943a7e2706933018bf1573b31792
                                             </constraints>
                                         </tableViewCellContentView>
