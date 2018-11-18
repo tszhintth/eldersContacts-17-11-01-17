@@ -44,7 +44,7 @@ class AddContacts: UIViewController, UIImagePickerControllerDelegate, UINavigati
     //dismiss when touch outside of the popup view
     @IBAction func cancelAddContact(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-        let string = "cancel add contact"
+        let string = "contact"
         let utterance = AVSpeechUtterance(string: string)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         let synth = AVSpeechSynthesizer()
@@ -56,7 +56,29 @@ class AddContacts: UIViewController, UIImagePickerControllerDelegate, UINavigati
         return false
     }
     
-  
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == FirstName {
+            let string = "First name"
+            let utterance = AVSpeechUtterance(string: string)
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            let synth = AVSpeechSynthesizer()
+            synth.speak(utterance)
+        }
+        if textField == FamilyName {
+            let string = "family name"
+            let utterance = AVSpeechUtterance(string: string)
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            let synth = AVSpeechSynthesizer()
+            synth.speak(utterance)
+        }
+        if textField == Phone {
+            let string = "phone number"
+            let utterance = AVSpeechUtterance(string: string)
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            let synth = AVSpeechSynthesizer()
+            synth.speak(utterance)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

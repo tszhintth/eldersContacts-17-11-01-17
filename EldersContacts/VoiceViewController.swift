@@ -111,6 +111,13 @@ class VoiceViewController: UIViewController , UITableViewDelegate, UITableViewDa
     @IBAction func startTranscribing(_ sender: AnyObject) {
         transcribeButton.isEnabled = false
         //stopButton.isEnabled = true
+        vibration()
+        let string = "Start recording"
+        let utterance = AVSpeechUtterance(string: string)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        
+        let synth = AVSpeechSynthesizer()
+        synth.speak(utterance)
         try! startSession()
     }
     
@@ -184,6 +191,16 @@ class VoiceViewController: UIViewController , UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         myTexView.adjustsFontSizeToFitWidth = true
+        
+        //setting the background image
+        let backgroundImage = UIImage.init(named: "voiceBackground.jpg")
+        let backgroundImageView = UIImageView.init(frame: self.view.frame)
+        
+        backgroundImageView.image = backgroundImage
+        backgroundImageView.contentMode = .scaleAspectFill
+        //how saturate is the image
+        backgroundImageView.alpha = 0.3
+
         authorizeSR()
         // Do any additional setup after loading the view.
     }
@@ -213,3 +230,7 @@ class VoiceViewController: UIViewController , UITableViewDelegate, UITableViewDa
     
 }
 
+func vibration () {
+    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+    print("vibrate")
+}

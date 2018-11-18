@@ -128,13 +128,13 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
 //        table.reloadData()
 //    }
     
-    override func willMove(toParent parent: UIViewController?) {
-        super.willMove(toParent: parent)
-        
-        if parent == self.navigationController?.parent {
-            print("Back tapped")
-        }
-    }
+//    override func willMove(toParent parent: UIViewController?) {
+//        super.willMove(toParent: parent)
+//
+//        if parent == self.navigationController?.parent {
+//            print("Back tapped")
+//        }
+//    }
     
     
     private func fetchContact(){
@@ -176,14 +176,14 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         })
     }
     
-    func printAllContentArr(_ arr: [CNContact]){
-        for contact in arr{
-            print(contact.givenName)
-            print(contact.familyName)
-            print(contact.phoneNumbers.first?.value.stringValue ?? "")
-        }
-    }
-    
+//    func printAllContentArr(_ arr: [CNContact]){
+//        for contact in arr{
+//            print(contact.givenName)
+//            print(contact.familyName)
+//            print(contact.phoneNumbers.first?.value.stringValue ?? "")
+//        }
+//    }
+
     func printAllContactInfo(_ contact: CNContact){
         print(contact.givenName)
         print(contact.familyName)
@@ -196,7 +196,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 let temp: personInfo = segue.destination as! personInfo
                 if let number = selectedRowNumber{
                         let person = contactArr[number]
-                        printAllContactInfo(person)
+                        //printAllContactInfo(person)
                         temp.content = person
                         vibration()
                     }else{
