@@ -47,6 +47,45 @@ class Edit: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelega
         //
     }
    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == FirstName{
+            let string = "first name"
+            let utterance = AVSpeechUtterance(string: string)
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            
+            let synth = AVSpeechSynthesizer()
+            synth.speak(utterance)
+        }
+        
+        if textField == FamiyName{
+            let string = "family name"
+            let utterance = AVSpeechUtterance(string: string)
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            
+            let synth = AVSpeechSynthesizer()
+            synth.speak(utterance)
+        }
+        
+        if textField == Phone{
+            let string = "phone number"
+            let utterance = AVSpeechUtterance(string: string)
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            
+            let synth = AVSpeechSynthesizer()
+            synth.speak(utterance)
+        }
+        
+        if textField == Comand{
+            let string = "voice command"
+            let utterance = AVSpeechUtterance(string: string)
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            
+            let synth = AVSpeechSynthesizer()
+            synth.speak(utterance)
+        }
+    }
+    
+    
     //move up keyboard when cover textfield
     @objc func keyboardWillChange(notification: Notification){
         guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
@@ -93,7 +132,14 @@ class Edit: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelega
             synth.speak(utterance)
             return
         }
+      
+        let string = "update"
+        let utterance = AVSpeechUtterance(string: string)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         
+        let synth = AVSpeechSynthesizer()
+        synth.speak(utterance)
+        vibration()
         phone = phone.components(separatedBy: CharacterSet.whitespaces).joined()
         phone = phone.toValidPhoneNum()
         print("phoneNUM: \(phone)")
@@ -234,6 +280,13 @@ class Edit: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelega
         //tablereload
         
         self.view.insertSubview(backgroundImageView, at: 0)
+        
+        let string = "edit contact"
+        let utterance = AVSpeechUtterance(string: string)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        
+        let synth = AVSpeechSynthesizer()
+        synth.speak(utterance)
     }
 
     override func didReceiveMemoryWarning() {
