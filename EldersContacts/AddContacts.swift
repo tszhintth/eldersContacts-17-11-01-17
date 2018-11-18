@@ -101,7 +101,6 @@ class AddContacts: UIViewController, UIImagePickerControllerDelegate, UINavigati
         let string = "add contact"
         let utterance = AVSpeechUtterance(string: string)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        
         let synth = AVSpeechSynthesizer()
         synth.speak(utterance)
     }
@@ -155,54 +154,77 @@ class AddContacts: UIViewController, UIImagePickerControllerDelegate, UINavigati
             print("FamilyName Error")
             return
         }
-        guard let phone = Int64(Phone.text!) else {
-            let string = "phone must be number digit zero to nine"
+        guard var phone = Phone.text else {
+            let string = "Phone number can not be empty"
             let utterance = AVSpeechUtterance(string: string)
             utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-            
             let synth = AVSpeechSynthesizer()
             synth.speak(utterance)
             return
         }
-        if firstName != "" && familyName != "" {
+        phone = phone.components(separatedBy: CharacterSet.whitespaces).joined()
+        phone = phone.toValidPhoneNum()
+        print("phoneNUM: \(phone)")
+        
+        if firstName == "" || familyName == "" {
+            print("failed")
+            let string = "Both first name and family name cannot be empty"
+            let utterance = AVSpeechUtterance(string: string)
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            let synth = AVSpeechSynthesizer()
+            synth.speak(utterance)
+        }else if phone == ""{
+            print("failed")
+            let string = "Invalid phone number"
+            let utterance = AVSpeechUtterance(string: string)
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            let synth = AVSpeechSynthesizer()
+            synth.speak(utterance)
+        } else {
             print("success")
             let contact = CNMutableContact()
-            
             contact.givenName = firstName
             contact.familyName = familyName
-            contact.phoneNumbers = [CNLabeledValue(label: CNLabelPhoneNumberiPhone, value: CNPhoneNumber(stringValue: String(phone)))]
+            contact.phoneNumbers = [CNLabeledValue(label: CNLabelPhoneNumberiPhone, value: CNPhoneNumber(stringValue: phone))]
             if let imageData = profilePic.image {
                 contact.imageData = imageData.jpegData(compressionQuality: 1)
-            } else {
-               
             }
             let store = CNContactStore()
             let saveRequest = CNSaveRequest()
             saveRequest.add(contact, toContainerWithIdentifier: nil)
             try! store.execute(saveRequest)
-            
             let string = "\(contact.givenName) \(contact.familyName) is added to contact"
             let utterance = AVSpeechUtterance(string: string)
             utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-            
-            let synth = AVSpeechSynthesizer()
-            synth.speak(utterance)
-        } else {
-            let string = "Both first name and family name cannot be empty"
-            let utterance = AVSpeechUtterance(string: string)
-            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-            
             let synth = AVSpeechSynthesizer()
             synth.speak(utterance)
         }
+        
+        
         self.performSegue(withIdentifier: "addedSegue", sender: self)
     }
-    
     func vibration () {
         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         print("vibrate")
     }
 }
 
-
-
+extension String{
+    private func matches(for regex: String, in text: String) -> [String] {
+        do {
+            let regex = try NSRegularExpression(pattern: regex)
+            let results = regex.matches(in: text, range: NSRange(text.startIndex..., in: text))
+            return results.map {
+                String(text[Range($0.range, in: text)!])
+            }
+        } catch let error {
+            print("invalid regex: \(error.localizedDescription)")
+            return []
+        }
+    }
+    
+    func toValidPhoneNum() -> String{
+        let matched = matches(for: "(\\+?\\d{1,4}[\\s-]?)?(?!0+\\s+,?$)\\d{8}\\s*", in: self)         // only extract the digits
+        return matched.joined(separator: "")
+    }
+}

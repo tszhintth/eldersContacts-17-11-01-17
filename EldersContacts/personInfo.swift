@@ -27,7 +27,9 @@ class personInfo: UIViewController {
         
         if let temp = content{
             let phoneNum = temp.phoneNumbers.first?.value.stringValue
-            let url = URL(string: "sms:\(toValidPhoneNum(phoneNum!))")
+             let url = URL(string: "sms:\(toValidPhoneNum(phoneNum!))")
+//            CharacterSet.init(charactersIn: "+ ")
+//            let url = URL(strin: "sms:\(phoneNum!.trimmingCharacters(in: <#T##CharacterSet#>))")
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(url!)
             } else {
@@ -154,7 +156,7 @@ class personInfo: UIViewController {
     }
 }
 
-func matches(for regex: String, in text: String) -> [String] {
+private func matches(for regex: String, in text: String) -> [String] {
     do {
         let regex = try NSRegularExpression(pattern: regex)
         let results = regex.matches(in: text, range: NSRange(text.startIndex..., in: text))

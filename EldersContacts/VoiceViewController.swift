@@ -100,6 +100,29 @@ class VoiceViewController: UIViewController , UITableViewDelegate, UITableViewDa
 //            tableView.reloadData()
 //        }
 //    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        do {
+            if editingStyle == UITableViewCell.EditingStyle.delete{
+                let target = tasks[indexPath.row]
+                tasks.remove(at: indexPath.row)
+                let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+                let fetchRequest: NSFetchRequest<Contacts> = Contacts.fetchRequest()
+                fetchRequest.predicate = NSPredicate(format: "toCall == %@ && phone == %@", target.toCall!, target.phone!)
+                let fetchContent = try context.fetch(fetchRequest)
+                if fetchContent.count > 0{
+                    context.delete(fetchContent.first!)
+                    tableView.reloadData()
+                    (UIApplication.shared.delegate as! AppDelegate).saveContext()
+                }else{
+                    print("No matched")
+                }
+            }
+        }catch{
+            print("FETCH ERROR DELETE")
+        }
+    }
+    
     private let speechRecognizer = SFSpeechRecognizer(locale:
         Locale(identifier: "en_US"))!
     
@@ -110,7 +133,6 @@ class VoiceViewController: UIViewController , UITableViewDelegate, UITableViewDa
     
     @IBAction func startTranscribing(_ sender: AnyObject) {
         transcribeButton.isEnabled = false
-        //stopButton.isEnabled = true
         vibration()
         let string = "Start recording"
         let utterance = AVSpeechUtterance(string: string)
@@ -121,15 +143,6 @@ class VoiceViewController: UIViewController , UITableViewDelegate, UITableViewDa
         try! startSession()
     }
     
-
-    //    @IBAction func stopTranscribing(_ sender: AnyObject) {
-    //        if audioEngine.isRunning {
-    //            audioEngine.stop()
-    //            speechRecognitionRequest?.endAudio()
-    //            transcribeButton.isEnabled = true
-    //            stopButton.isEnabled = false
-    //        }
-    //    }
     func startSession() throws {
         
         if let recognitionTask = speechRecognitionTask {
@@ -138,8 +151,9 @@ class VoiceViewController: UIViewController , UITableViewDelegate, UITableViewDa
         }
         
         let audioSession = AVAudioSession.sharedInstance()
+        
         do {
-            try AVAudioSession.sharedInstance().setCategory(.init(rawValue: ""), mode: .videoChat)
+            try AVAudioSession.sharedInstance().setCategory(.record, mode: .videoChat)
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
             print(error)
@@ -152,31 +166,26 @@ class VoiceViewController: UIViewController , UITableViewDelegate, UITableViewDa
         guard let inputNode : AVAudioNode = audioEngine.inputNode else { fatalError("Audio engine has no input node") }
         
         recognitionRequest.shouldReportPartialResults = true
-        
-        speechRecognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in
-            
-            var finished = false
-            
-            if let result = result {
-                let bestString = result.bestTranscription.formattedString
+        var finished = false
+        var count = 0
+        speechRecognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest, resultHandler: { (result, error) in
+            if let temp = result {
+                let bestString = temp.bestTranscription.formattedString
                 var lastString : String = ""
-                for segment in result.bestTranscription.segments {
+                for segment in temp.bestTranscription.segments {
                     let indexTo = bestString.index(bestString.startIndex, offsetBy: segment.substringRange.location)
                     lastString = bestString.substring(from: indexTo).lowercased()
                 }
                 self.myTexView.text = lastString
-                finished = result.isFinal
-                self.checkCommand(lastString);
-            }
-            
-            if error != nil || finished {
+                self.checkCommand(&lastString, &finished, &count)
+                recognitionRequest.endAudio()
                 self.audioEngine.stop()
                 inputNode.removeTap(onBus: 0)
                 self.speechRecognitionRequest = nil
                 self.speechRecognitionTask = nil
                 self.transcribeButton.isEnabled = true
             }
-        }
+        })
         
         let recordingFormat = inputNode.outputFormat(forBus: 0)
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
@@ -205,17 +214,28 @@ class VoiceViewController: UIViewController , UITableViewDelegate, UITableViewDa
         // Do any additional setup after loading the view.
     }
     
-    func checkCommand(_ cmd : String) {
+    override func viewWillDisappear(_ animated: Bool) {
+        self.audioEngine.stop()
+        self.speechRecognitionRequest = nil
+        self.speechRecognitionTask = nil
+    }
+    
+    func checkCommand(_ cmd: inout String,_ bool: inout Bool,_ numCount: inout Int) {
         for task in tasks{
-            if task.toCall == cmd{
-                let url = URL(string: "tel:\(task.phone!)")
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(url!)
-                } else {
-                    UIApplication.shared.openURL(url!)
+            if task.toCall == cmd && !bool{
+                if numCount < 1{
+                    let url = URL(string: "tel:\(task.phone!)")
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(url!)
+                    } else {
+                        UIApplication.shared.openURL(url!)
+                    }
+                    cmd = ""
+                    bool = true
                 }
             }
         }
+        numCount += 1
     }
     
     /*

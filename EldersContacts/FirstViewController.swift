@@ -151,10 +151,8 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             if granted{
                 print("Access granted")
-                
                 let keys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey, CNContactImageDataKey]
                 let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
-                
                 do{
                     try store.enumerateContacts(with: request, usingBlock: {
                         (contact, stopPointer) in
@@ -202,11 +200,11 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     }else{
                         print("cannot get the row number")
                     }
-            }else{
-                print("identifier failed")
+            }else if identifier == "add Contact"{
+                print("Add contact")
+            }else if identifier == "voice Command"{
+                print("voice Command")
             }
-        }else{
-            print("Add contect")
         }
     }
     
