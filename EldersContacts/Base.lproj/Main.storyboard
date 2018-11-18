@@ -554,7 +554,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Wox-qu-nDD" secondAttribute="height" multiplier="25:6" id="fPa-ut-P9L"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
